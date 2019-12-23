@@ -57,19 +57,28 @@ var register = function (fname, lname, sex, email, phone, password, credits, bir
 
 };
 
-var modify = function (field, value, id) {
+function modify(field, value, id, callback) {
     var sql = "UPDATE `member` SET ??=? WHERE `ID`=?"
     const inserts = [field, value, id]
     sql = mysql.format(sql, inserts)
     pool.getConnection(function (err, connection) {
         if (err) {
-            console.error('error connecting: ', err);
+            return callback('error connecting: ' + err, null)
         }
         else {
             connection.query(sql, function (err, results) {
-                callback(err, results)
                 connection.release()
+                return callback(err, results)
             })
         }
     })
 }
+
+modify('Phone', '878', 1, function (err, results) {
+    if (err) {
+        console.log(err);
+    }
+    else {
+        console.log(err,results);
+    }
+});
