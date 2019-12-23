@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `GameLibrary` (
 ) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `Comment` (
-  Comment_ID INT NOT NULL,
+  Comment_ID INT NOT NULL AUTO_INCREMENT,
   ID INT,
   Game_ID INT,
   description TEXT NOT NULL,
@@ -163,34 +163,5 @@ VALUES
 SELECT
   *
 FROM
-  `Member`;
+  `comment`;
 
-SELECT
-  *
-FROM
-  `GameLibrary`;
-
-SELECT
-  *
-FROM
-  `Game`;
-
-SELECT
-  *
-FROM
-  `Author`;
-
-SELECT
-  *
-FROM
-  `Order`;
-
-SELECT
-  *
-FROM
-  `Cart`;
-
-SELECT
-  *
-FROM
-  `Cart_List`;
