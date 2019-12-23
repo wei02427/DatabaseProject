@@ -13,10 +13,6 @@ pool.getConnection(function (err, connection) {
     connection.query(register('q', 'p', 'q', '1111', '123', '0', '123456', 'ded', '1987-1-3', '123455'), function (err, result) {
         if (err) throw err;
         console.log(result);
-    })
-    connection.query('SELECT * FROM `Member`', function (err, result) {
-        if (err) throw err;
-        console.log(result);
         connection.release();
     })
 
