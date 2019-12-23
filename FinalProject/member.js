@@ -57,28 +57,29 @@ var register = function (fname, lname, sex, email, phone, password, credits, bir
 
 };
 
-function modify(field, value, id, callback) {
-    var sql = "UPDATE `member` SET ??=? WHERE `ID`=?"
-    const inserts = [field, value, id]
-    sql = mysql.format(sql, inserts)
-    pool.getConnection(function (err, connection) {
-        if (err) {
-            return callback('error connecting: ' + err, null)
-        }
-        else {
-            connection.query(sql, function (err, results) {
-                connection.release()
-                return callback(err, results)
-            })
-        }
+function modify(field, value, id) {
+    return new Promise(function (resolve, reject) {
+        var sql = "UPDATE `member` SET ??=? WHERE `ID`=?"
+        const inserts = [field, value, id]
+        sql = mysql.format(sql, inserts)
+        pool.getConnection(function (err, connection) {
+            if (err) {
+                reject(err);
+            }
+            else {
+                connection.query(sql, function (err, results) {
+                    connection.release()
+                    resolve(results)
+                })
+            }
+        })
     })
 }
 
-modify('Phone', '878', 1, function (err, results) {
-    if (err) {
-        console.log(err);
-    }
-    else {
-        console.log(err,results);
-    }
-});
+modify('Phone', '878', 1)
+    .then(function (fulfilled) {
+        console.log(fulfilled)
+    })
+    .catch(function (error) {
+        console.log(error)
+    })
