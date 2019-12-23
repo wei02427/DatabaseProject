@@ -9,8 +9,9 @@ var pool = mysql.createPool({
 
 pool.getConnection(function (err, connection) {
     if (err) throw err;
-    console.log(register('q', 'p', 'q', '1111', '123', '0', '123456', 'ded', '1987-1-3', '123455'));
-    connection.query(register('q', 'p', 'q', '1111', '123', '0', '123456', 'ded', '1987-1-3', '123455'), function (err, result) {
+
+    console.log(modify('Phone', '66666', 2))
+    connection.query(modify('Phone', '66666', 2), function (err, result) {
         if (err) throw err;
         console.log(result);
         connection.release();
@@ -19,16 +20,17 @@ pool.getConnection(function (err, connection) {
 });
 
 
-function register(fname, lname, email, phone, address, sex, password, account, birthday, credits) {
-    return "INSERT INTO `Member` SET `First_Name`='" + fname +
-        "',`Last_Name`='" + lname +
-        "',`Sex`=" + sex +
-        ", `Email`='" + email +
-        "',`Phone`='" + phone +
-        "',`Password`='" + password +
-        "',`Credits`='" + credits +
-        "',`Class`='1'" +
-        ",`Birthday`='" + birthday +
-        "',`Address`='" + address +
-        "',`Account`='" + account + '\''
+function register(fname, lname, sex, email, phone, password, credits, birthday, address, account) {
+
+    var sql = "INSERT INTO `Member`(`First_Name`,`Last_Name`,`Sex`,`Email`,`Phone`,`Password`,`Credits`,`Class`,`Birthday`,`Address`,`Account`) VALUES (?,?,?,?,?,?,?,1,?,?,?)"
+    const inserts = [fname, lname, sex, email, phone, password, credits, birthday, address, account]
+    sql = mysql.format(sql, inserts)
+    return sql
+}
+
+function modify(field, value, id) {
+    var sql = "UPDATE `member` SET ??=? WHERE `ID`=?"
+    const inserts = [field, value, id]
+    sql = mysql.format(sql, inserts)
+    return sql
 }

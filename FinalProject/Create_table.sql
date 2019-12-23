@@ -1,10 +1,11 @@
-/*DROP DATABASE IF EXISTS Project;*/
+DROP DATABASE IF EXISTS Project;
+
 CREATE DATABASE IF NOT EXISTS Project CHARACTER SET utf8;
+
 USE Project;
 
-
 CREATE TABLE IF NOT EXISTS `Member` (
-  ID INT NOT NULL,
+  ID INT NOT NULL AUTO_INCREMENT,
   First_Name VARCHAR(20),
   Last_Name VARCHAR(20),
   Sex CHAR NOT NULL,
@@ -14,39 +15,37 @@ CREATE TABLE IF NOT EXISTS `Member` (
   Credits VARCHAR(20),
   Class VARCHAR(20),
   Birthday DATE,
+  Address VARCHAR(50) NOT NULL,
   Account VARCHAR(20) NOT NULL,
   PRIMARY KEY (ID)
-)ENGINE=InnoDB;
-
-
+) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `Author` (
-  Author_ID INT NOT NULL,
+  Author_ID INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(50),
   PRIMARY KEY(Author_ID)
-)ENGINE=InnoDB;
-
+) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `Game` (
-  Game_ID INT NOT NULL,
-  Author_ID INT ,
+  Game_ID INT NOT NULL AUTO_INCREMENT,
+  Author_ID INT,
   name VARCHAR(50) NOT NULL,
   type VARCHAR(50) NOT NULL,
   price INT NOT NULL,
-  photo LONGBLOB ,
+  photo LONGBLOB,
   description TEXT NOT NULL,
   release_state BOOLEAN NOT NULL,
   `time` DATE NOT NULL,
   PRIMARY KEY(Game_ID),
   FOREIGN KEY(Author_ID) REFERENCES `Author`(Author_ID) ON DELETE CASCADE
-)ENGINE=InnoDB;
+) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `Cart` (
-  Cart_ID INT NOT NULL,
+  Cart_ID INT NOT NULL AUTO_INCREMENT,
   ID INT NOT NULL,
   PRIMARY KEY (Cart_ID),
   FOREIGN KEY(ID) REFERENCES `Member`(ID) ON DELETE CASCADE
-)ENGINE=InnoDB;
+) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `Cart_List` (
   Cart_ID INT NOT NULL,
@@ -54,15 +53,15 @@ CREATE TABLE IF NOT EXISTS `Cart_List` (
   PRIMARY KEY (Cart_ID, Game_ID),
   FOREIGN KEY(Cart_ID) REFERENCES Cart(Cart_ID) ON DELETE CASCADE,
   FOREIGN KEY(Game_ID) REFERENCES Game(Game_ID) ON DELETE CASCADE
-)ENGINE=InnoDB;
+) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `Order` (
-  Order_ID INT NOT NULL,
+  Order_ID INT NOT NULL AUTO_INCREMENT,
   ID INT,
   DataTime DateTime,
   PRIMARY KEY (Order_ID, ID),
   FOREIGN KEY(ID) REFERENCES `Member`(ID) ON DELETE CASCADE
-)ENGINE=InnoDB;
+) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `GameLibrary` (
   Order_ID INT NOT NULL,
@@ -70,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `GameLibrary` (
   PRIMARY KEY (Order_ID, Game_ID),
   FOREIGN KEY(Order_ID) REFERENCES `Order`(Order_ID) ON DELETE CASCADE,
   FOREIGN KEY(Game_ID) REFERENCES Game(Game_ID) ON DELETE CASCADE
-)ENGINE=InnoDB;
+) ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `Comment` (
   Comment_ID INT NOT NULL,
@@ -82,26 +81,116 @@ CREATE TABLE IF NOT EXISTS `Comment` (
   PRIMARY KEY(Comment_ID),
   FOREIGN KEY(ID) REFERENCES `Member`(ID) ON DELETE CASCADE,
   FOREIGN KEY(Game_ID) REFERENCES `Game`(Game_ID) ON DELETE CASCADE
-)ENGINE=InnoDB;
+) ENGINE = InnoDB;
 
-INSERT INTO `Member` VALUES (123, 'ASD', 'FF', 0, 'EJFIOWEF@JIOA', '0956481235', 'fewgdq', 'creditddd', '123', '1999-01-12', 'wd');
-INSERT INTO `Author`VALUES (456,'張育瑞');
-INSERT INTO `Game` VALUES (123, 456, '越南大戰','射擊',100,NULL,'很好玩 吧',TRUE,'2087-05-11');
-INSERT INTO `Order` VALUES (123, 123, '1999-01-12');
-INSERT INTO `GameLibrary` VALUES (123, 123);
-INSERT INTO `Cart` VALUES (123, 123);
-INSERT INTO `Cart_List` VALUES (123, 123);
+INSERT INTO
+  `Member` (
+    First_Name,
+    Last_Name,
+    Sex,
+    Email,
+    Phone,
+    Password,
+    Credits,
+    Class,
+    Birthday,
+    Address,
+    Account
+  )
+VALUES
+  (
+    'ASD',
+    'FF',
+    0,
+    'EJFIOWEF@JIOA',
+    '0956481235',
+    'fewgdq',
+    'creditddd',
+    '123',
+    '1999-01-12',
+    '在哪裡',
+    'wd'
+  );
 
+INSERT INTO
+  `Author` (name)
+VALUES
+  ('張育瑞');
 
+INSERT INTO
+  `Game` (
+    Author_ID,
+    name,
+    type,
+    price,
+    photo,
+    description,
+    release_state,
+    time
+  )
+VALUES
+  (
+    1,
+    '越南大戰',
+    '射擊',
+    100,
+    NULL,
+    '很好玩 吧',
+    TRUE,
+    '2087-05-11'
+  );
 
-SELECT * FROM `Member`;
-SELECT * FROM `GameLibrary`;
-SELECT * FROM `Game`;
-SELECT * FROM `Author`;
-SELECT * FROM `Order`;
-SELECT * FROM `Cart`;
-SELECT * FROM `Cart_List`;
+INSERT INTO
+  `Order` (ID, DataTime)
+VALUES
+  (1, '2012-01-12');
 
+INSERT INTO
+  `GameLibrary`(Order_ID, Game_ID)
+VALUES
+  (1, 1);
 
+INSERT INTO
+  `Cart` (ID)
+VALUES
+  (1);
 
+INSERT INTO
+  `Cart_List` (Cart_ID, Game_ID)
+VALUES
+  (1, 1);
 
+SELECT
+  *
+FROM
+  `Member`;
+
+SELECT
+  *
+FROM
+  `GameLibrary`;
+
+SELECT
+  *
+FROM
+  `Game`;
+
+SELECT
+  *
+FROM
+  `Author`;
+
+SELECT
+  *
+FROM
+  `Order`;
+
+SELECT
+  *
+FROM
+  `Cart`;
+
+SELECT
+  *
+FROM
+  `Cart_List`;
