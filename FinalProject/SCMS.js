@@ -19,7 +19,7 @@ async function insertComment(ID,Game_ID,des,star){
 
 async function updateComment(ID,Game_ID,des,stars){
     var dateTime = getRealTime();
-    var sqlCommand = "UPDATE comment SET `description` = ?, `stars` =?, `time` =? WHERE `ID` = ? AND `Game_ID` = ?";
+    var sqlCommand = "UPDATE `comment` SET `description` = ?, `stars` =?, `time` =? WHERE `ID` = ? AND `Game_ID` = ?";
     const inserts = [des,stars,dateTime,ID,Game_ID];
     sqlCommand = mysql.format(sqlCommand, inserts);
     try {
@@ -33,7 +33,7 @@ async function updateComment(ID,Game_ID,des,stars){
 
 
 async function getPersonComment(ID, Game_ID){
-    var sqlCommand = "SELECT `ID`, `description`,`stars`,`time` FROM comment WHERE `Game_ID` = ? AND `ID` = ?";
+    var sqlCommand = "SELECT `ID`, `description`,`stars`,`time` FROM `comment` WHERE `Game_ID` = ? AND `ID` = ?";
     const inserts = [Game_ID,ID];
     sqlCommand = mysql.format(sqlCommand, inserts);
     try {
@@ -48,7 +48,7 @@ async function getPersonComment(ID, Game_ID){
 
 
 async function getGameComment(ID,Game_ID){
-    var sqlCommand = "SELECT `ID`, `description`,`stars`,`time` FROM comment WHERE `Game_ID` = ? AND NOT `ID` = ?";
+    var sqlCommand = "SELECT `ID`, `description`,`stars`,`time` FROM `comment` WHERE `Game_ID` = ? AND NOT `ID` = ?";
     const inserts = [Game_ID,ID];
     sqlCommand = mysql.format(sqlCommand, inserts);
     try {
@@ -62,7 +62,7 @@ async function getGameComment(ID,Game_ID){
 }
 
 async function getCommentID(Game_ID){
-    var sqlCommand = "SELECT `ID` FROM comment WHERE `Game_ID` = ?";
+    var sqlCommand = "SELECT `ID` FROM `comment` WHERE `Game_ID` = ?";
     const inserts = [Game_ID];
     sqlCommand = mysql.format(sqlCommand, inserts);
     try {
@@ -75,8 +75,8 @@ async function getCommentID(Game_ID){
     }
 }
 
-async function deleteGameComment(Game_ID){
-    var sqlCommand = "SELECT `ID` FROM comment WHERE `Game_ID` = ?";
+/*async function deleteGameComment(Game_ID){
+    var sqlCommand = "SELECT `ID` FROM `comment` WHERE `Game_ID` = ?";
     const inserts = [Game_ID];
     sqlCommand = mysql.format(sqlCommand, inserts);
     try {
@@ -87,7 +87,7 @@ async function deleteGameComment(Game_ID){
     catch{
         console.log(err);
     }
-}
+}*/
 
 function compareObj(obj1,obj2){
     var i=0;
