@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `Cart_List` (
 
 CREATE TABLE IF NOT EXISTS `Order` (
   Order_ID INT NOT NULL AUTO_INCREMENT,
-  ID INT,
+  ID INT  NOT NULL,
   DataTime DateTime,
   PRIMARY KEY (Order_ID, ID),
   FOREIGN KEY(ID) REFERENCES `Member`(ID) ON DELETE CASCADE ON UPDATE CASCADE
@@ -164,37 +164,3 @@ INSERT INTO
 VALUES
   (1, 1);
 
-SELECT
-  *
-FROM
-  `Member`;
-
-SELECT
-  *
-FROM
-  `GameLibrary`;
-
-SELECT
-  *
-FROM
-  `Game`;
-
-SELECT
-  *
-FROM
-  `Author`;
-
-SELECT
-  *
-FROM
-  `Order`;
-
-SELECT
-  *
-FROM
-  `Cart`;
-
-SELECT
-  *
-FROM
-  `Cart_List`;
