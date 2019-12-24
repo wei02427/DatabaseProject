@@ -1,21 +1,19 @@
-const { query } = require('../utils/async-db.js')
-var mysql = require('mysql');
-//async function
+const database = require('../utils/async-db.js')
 
+//async function
+const item =[];
+var cartItem = [];
 async function getPersonCartID(ID){
     var sqlCommand = "SELECT `Cart_ID` FROM `cart` WHERE `ID` = ?";
     const inserts = [ID];
-    sqlCommand = mysql.format(sqlCommand, inserts);
+    sqlCommand = database.format(sqlCommand, inserts);
     try {
-        var cartItem = [];
-        const results = await query(sqlCommand);
+        var i =0;
+        const results = await database.query(sqlCommand);
         console.log("success get cart_ID");
-        while(results[i]){
-            cartItem.push(getPersonCartIDItem(results[i].Cart_ID));
-        }
-        return cartItem;
+        return results[0].Cart_ID;
     }
-    catch{
+    catch(err){
         console.log(err);
     }
 }
@@ -23,19 +21,48 @@ async function getPersonCartID(ID){
 async function getPersonCartIDItem(Cart_ID){
     var sqlCommand = "SELECT `Game_ID` FROM `cart_list` WHERE `Cart_ID` = ?";
     const inserts = [Cart_ID];
-    sqlCommand = mysql.format(sqlCommand, inserts);
+    sqlCommand = database.format(sqlCommand, inserts);
     try {
-        const results = await query(sqlCommand);
+        const results = await database.query(sqlCommand);
         console.log("success get Game_ID");
-        return results;
+        var i =0;
+        while(results[i]){
+            item.push(results[i].Game_ID);
+            i++;
+        }
+        return item;
     }
-    catch{
+    catch(err){
         console.log(err);
     }
 }
 
-function getPersonPaymentList(ID){
+function getPersonCartList(ID){
     var personCart = getPersonCartID(ID);
     console.log(personCart);
+    personCart
+    .then(function(results){ 
+        cartItem = getPersonCartIDItem(results);
+        cartItem
+        .then(function(results){
+            console.log(results);
+            return results;   
+        })
+        .catch(function(err){
+            console.log(err);
+        });
+    })
+    .catch(function(err){
+        console.log(err);
+    });
 }
 
+var getID = getPersonCartList(1);
+
+/*cartItem
+.then(function(results){
+    console.log(results);
+})
+.catch(function(err){
+    console.log(err);
+});*/
