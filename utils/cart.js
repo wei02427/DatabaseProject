@@ -1,6 +1,6 @@
-const database = require('../utils/async-db.js')
+const database = require('./async-db.js')
 
-async function getCartID(uid) {
+let getCartID = async function (uid) {
     var sql = "SELECT `Cart_ID` FROM `Cart` WHERE `ID`=?"
     const insert = [uid]
     sql = database.format(sql, insert)
@@ -18,7 +18,7 @@ async function getCartID(uid) {
     }
 }
 
-async function add(uid, gameID) {
+let add = async function (uid, gameID) {
 
     try {
         const cartID = await getCartID(uid)
@@ -35,7 +35,7 @@ async function add(uid, gameID) {
 
 }
 
-async function remove(uid, gameID) {
+let remove = async function (uid, gameID) {
     try {
         const cartID = await getCartID(uid)
         var sql = "DELETE FROM `Cart_List` WHERE `Cart_ID`=? AND `Game_ID`=?"
@@ -45,7 +45,7 @@ async function remove(uid, gameID) {
         if (result.affectedRows > 0) {
             return 'remove game suscess'
         }
-        else{
+        else {
             throw 'game no found, remove fail'
         }
     }
@@ -54,7 +54,7 @@ async function remove(uid, gameID) {
     }
 }
 
-async function list(uid) {
+let list = async function (uid) {
     try {
         const cartID = await getCartID(uid)
         var sql = "SELECT * FROM `Cart_List` WHERE `Cart_ID`=?"
@@ -68,7 +68,7 @@ async function list(uid) {
     }
 }
 
-async function clear(uid) {
+let clear = async function (uid) {
     try {
         const cartID = await getCartID(uid)
         var sql = "DELETE FROM `Cart_List` WHERE `Cart_ID`=?"
@@ -78,7 +78,7 @@ async function clear(uid) {
         if (result.affectedRows > 0) {
             return 'clear cart suscess'
         }
-        else{
+        else {
             throw 'cart is empty'
         }
     }
@@ -86,17 +86,5 @@ async function clear(uid) {
         return err
     }
 }
-add(2, 1)
-    .then(function (result) {
-        console.log(result)
-    })
-    .catch(function (err) {
-        console.log(err)
-    })
-list(2)
-    .then(function (result) {
-        console.log(result)
-    })
-    .catch(function (err) {
-        console.log(err)
-    })
+
+module.exports = { add, remove, clear, list }
