@@ -18,7 +18,6 @@ let query = function (sql) {
                 // 執行 sql 腳本對資料庫進行讀寫
                 connection.query(sql, (err, rows) => {
                     if (err) {
-                        console.log(err)
                         reject(err)
                     } else {
                         resolve(rows)
