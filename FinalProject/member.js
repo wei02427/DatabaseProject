@@ -7,8 +7,8 @@ async function register(fname, lname, sex, email, phone, password, credits, birt
     sql = mysql.format(sql, inserts)
 
     try {
-        const results = await query(sql)
-        return results
+        await query(sql)
+        return 'register susscess'
     }
     catch{
         return err
@@ -23,7 +23,7 @@ async function modify(field, value, id) {
     const inserts = [field, value, id]
     sql = mysql.format(sql, inserts)
     try {
-        const results = await query(sql)
+        await query(sql)
         return results
     }
     catch{
@@ -32,4 +32,10 @@ async function modify(field, value, id) {
 
 }
 
-console.log(register('a', 'wei', 1, 'gmail', '0911', '1234', '090', '1999-5-5', '我家', '威'))
+register('a', 'wei', 1, 'gmail', '0911', '1234', '090', '1999-5-5', '我家', '威')
+    .then(function (result) {
+        console.log(result)
+    })
+    .catch(function (err) {
+        console.log(err)
+    })
