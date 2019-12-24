@@ -1,16 +1,18 @@
-const { query } = require('../utils/async-db.js')
-const mysql = require('mysql')
+const  database  = require('../utils/async-db.js')
+
 async function register(fname, lname, sex, email, phone, password, credits, birthday, address, account) {
 
-    var sql = "INSERT INTO `Member`(`First_Name`,`Last_Name`,`Sex`,`Email`,`Phone`,`Password`,`Credits`,`Class`,`Birthday`,`Address`,`Account`) VALUES (?,?,?,?,?,?,?,1,?,?,?)"
+    var sql1 = "INSERT INTO `Member`(`First_Name`,`Last_Name`,`Sex`,`Email`,`Phone`,`Password`,`Credits`,`Class`,`Birthday`,`Address`,`Account`) VALUES (?,?,?,?,?,?,?,1,?,?,?)"
     const inserts = [fname, lname, sex, email, phone, password, credits, birthday, address, account]
-    sql = mysql.format(sql, inserts)
-
+    var sql2 ="INSERT INTO `Cart` (`ID`) VALUES (LAST_INSERT_ID())"
+    
+    sql1 = database.format(sql1, inserts)
+    
     try {
-        await query(sql)
-        return 'register susscess'
+        results=await database.transaction([sql1,sql2])
+        return results
     }
-    catch{
+    catch(err){
         return err
     }
 
@@ -21,12 +23,12 @@ async function register(fname, lname, sex, email, phone, password, credits, birt
 async function modify(field, value, id) {
     var sql = "UPDATE `member` SET ??=? WHERE `ID`=?"
     const inserts = [field, value, id]
-    sql = mysql.format(sql, inserts)
+    sql = database.format(sql, inserts)
     try {
-        await query(sql)
+        results=await query(sql)
         return results
     }
-    catch{
+    catch(err){
         return err
     }
 
