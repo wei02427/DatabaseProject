@@ -72,19 +72,18 @@ async function getCommentID(Game_ID){
     }
 }
 
-/*async function deleteGameComment(Game_ID){
-    var sqlCommand = "SELECT `ID` FROM `comment` WHERE `Game_ID` = ?";
-    const inserts = [Game_ID];
+async function deleteGameComment(ID,Game_ID){
+    var sqlCommand = "DELETE FROM `comment` WHERE `Game_ID`=? AND `ID` = ?";
+    const inserts = [ID,Game_ID];
     sqlCommand = mysql.format(sqlCommand, inserts);
     try {
         const results = await query(sqlCommand);
-        console.log("success get comment id");
-        return results
+        console.log("success delete comment id");
     }
     catch{
         console.log(err);
     }
-}*/
+}
 
 function compareObj(obj1,obj2){
     var i=0;
@@ -140,7 +139,7 @@ function getRealTime(){
 }
 
 //ex:
-//commentGame(1,1,"good good lah",5);
-//var commentObj = getAllComment(2,1);
+//commentGame(2,1,"good good lah",5);
+var commentObj = getAllComment(1,1);
 
-module.exports = { commentGame, getAllComment}
+module.exports = { commentGame, getAllComment,deleteGameComment}

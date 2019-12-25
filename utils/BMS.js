@@ -1,51 +1,5 @@
-const database = require('./async-db.js')
-
-async function getPersonCartID(ID){
-    var sqlCommand = "SELECT `Cart_ID` FROM `cart` WHERE `ID` = ?";
-    const inserts = [ID];
-    sqlCommand = database.format(sqlCommand, inserts);
-    try {
-        const results = await database.query(sqlCommand);
-        console.log("success get cart_ID");
-        return results[0].Cart_ID;
-    }
-    catch(err){
-        console.log(err);
-    }
-}
-
-async function getPersonCartIDItem(Cart_ID){
-    var sqlCommand = "SELECT `Game_ID` FROM `cart_list` WHERE `Cart_ID` = ?";
-    const inserts = [Cart_ID];
-    sqlCommand = database.format(sqlCommand, inserts);
-    try {
-        const results = await database.query(sqlCommand);
-        console.log("success get Game_ID");
-        return results;
-    }
-    catch(err){
-        console.log(err);
-    }
-}
-
-async function deleteCartListItem(ID,Game_ID){
-    var personCart = await getPersonCartID(ID);
-    var i = 0;
-    while(Game_ID[i])
-    {
-        var sqlCommand = "DELETE FROM `cart_list` WHERE `Cart_ID`=? AND `Game_ID` = ?";
-        const inserts = [personCart,Game_ID[i]];
-        sqlCommand = database.format(sqlCommand, inserts);
-        try {
-            const results = await database.query(sqlCommand);
-            console.log(`success delete Game_ID${i} in cart`);
-        }
-        catch(err){
-            console.log(err);
-        }  
-        i++;
-    }  
-}
+const database = require('./async-db.js');
+const cartFunction = require('./cart');
 
 async function insertIDtoOrder(ID,DateTime){
     var sqlCommand = "INSERT into `order` (`ID`,`DataTime`)VALUES (?,?)";
@@ -73,26 +27,6 @@ async function getOrderID(ID,DateTime){
     }
 }
 
-async function insertGameIDtoGameLibrary(ID,Game_ID){
-    var DateTime = getRealTime();
-    await insertIDtoOrder(ID,DateTime);
-    var OrderID = await getOrderID(ID,DateTime);
-    var i = 0;
-    while(Game_ID[i])
-    {
-        var sqlCommand = "INSERT into `gamelibrary` (`Order_ID`,`Game_ID`)VALUES (?,?)";
-        const inserts = [OrderID,Game_ID[i]];
-        sqlCommand = database.format(sqlCommand, inserts);
-        try {
-            await database.query(sqlCommand);
-            console.log(`success insert Game_ID${i} in gamelibrary`);
-        }
-        catch(err){
-            console.log(err);
-        }  
-        i++;
-    }  
-}
 
 function getRealTime(){
     var today = new Date();
@@ -101,19 +35,42 @@ function getRealTime(){
     var dateTime = date+' '+time;
     return dateTime;
 }
+
 //Game_ID is a list [] ex:payment(1,[1]);
 let payment = async function(ID,Game_ID){
-    await insertGameIDtoGameLibrary(ID,Game_ID);
-    await deleteCartListItem(ID,Game_ID);
-    console.log("success payment!");
+    var DateTime = getRealTime();
+    await insertIDtoOrder(ID,DateTime);
+    var Order_ID = getOrderID(ID,DateTime);
+    var Cart_ID = cartFunction.getCartID(ID);
+    var i = 0;
+    var sqlCommand = [];
+    while(Game_ID[i]){
+        var sql1 = "INSERT into `gamelibrary` (`Order_ID`,`Game_ID`)VALUES (?,?)";
+        const inserts1 = [Order_ID, Game_ID[i]];
+        var sql2 = "DELETE FROM `cart_list` WHERE `Cart_ID`=? AND `Game_ID` = ?";
+        const inserts2 = [Cart_ID, Game_ID[i]];
+        sql1 = database.format(sql1,inserts1);
+        sqlCommand.push(sql1);
+        sql2 = database.format(sql2,inserts2);
+        sqlCommand.push(sql2);
+        i++;
+    }
+    try {
+        await database.transaction(sqlCommand)
+        console.log("success payment!");
+    }
+    catch (err) {
+        return err;
+    }
 }
 
 let getPersonCartList = async function(ID){
-    var personCart =await getPersonCartID(ID);
-    var cartItem = await getPersonCartIDItem(personCart);
-    console.log(cartItem);
-    return cartItem;
+    var personCartItem =await cartFunction.list(ID);
+
+    console.log(personCartItem);
+    return personCartItem;
 }
 
-
+var hell = getPersonCartList(1);
+//payment(1,[1]);
 module.exports = { payment, getPersonCartList}
