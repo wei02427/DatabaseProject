@@ -60,8 +60,9 @@ let list = async function (uid) {
         var sql = "SELECT * FROM `Cart_List` WHERE `Cart_ID`=?"
         const insert = [cartID]
         sql = database.format(sql, insert)
-        result = await database.query(sql)
-        return result
+        results = await database.query(sql)
+        return results
+        
     }
     catch (err) {
         return err
@@ -87,4 +88,11 @@ let clear = async function (uid) {
     }
 }
 
-module.exports = { add, remove, clear, list }
+/*list(3).then(function(values) {
+    console.log(values)
+    
+  })
+  .catch(function(err){
+    console.log(err)
+  })*/
+module.exports = {getCartID, add, remove, clear, list }
