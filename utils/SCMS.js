@@ -1,8 +1,5 @@
-const database = require('../utils/async-db.js')
+const database = require('./async-db.js')
 
-
-
-//insert comment to mysql
 async function insertComment(ID,Game_ID,des,star){     
     var dateTime = getRealTime();
     var sqlCommand = "INSERT into `comment` (`ID`,`Game_ID`,`description`,`stars`,`time`)VALUES (?,?,?,?,?)";
@@ -100,55 +97,37 @@ function compareObj(obj1,obj2){
     return false;
 }
 
-function getAllComment(ID,Game_ID){
-    var object1 = getPersonComment(ID,Game_ID);
-    var object2 = getGameComment(ID,Game_ID);
+let getAllComment = async function(ID,Game_ID){
+    var object1 = await getPersonComment(ID,Game_ID);
+    var object2 = await getGameComment(ID,Game_ID);
     var comment = [];
-    object1
-    .then(function(results){
-        var i = 0;
-        while(results[i]){
-            comment.push(results[i]);
-            i++;
-        }
-    })
-    .catch(function(err){
-        console.log(err);
-    });
-    object2
-    .then(function(results){
-        var i = 0;
-        while(results[i]){
-            comment.push(results[i]);
-            i++;
-        }
-        console.log(comment);
-        return comment;
-    })
-    .catch(function(err){
-        console.log(err);
-    });
+    var i = 0;
+    while(object1[i]){
+        comment.push(object1[i]);
+        i++;
+    }
+    i = 0;
+    while(object2[i]){
+        comment.push(object2[i]);
+        i++;
+    }
+    console.log(comment);
+    return comment;
 
 }
 
-function commentGame(ID,Game_ID,des,star){
-    var results = getCommentID(Game_ID);
-    results
-    .then(function(result){
-        var isOwn = false;
-        isOwn = compareObj(ID,result);
-        if(isOwn){
-            updateComment(ID,Game_ID,des,star);
-            console.log("update");
-        }
-        else{
-            insertComment(ID,Game_ID,des,star);
-            console.log("insert");
-        }
-    })
-    .catch(function(err){
-        console.log(err);
-    });
+let commentGame = async function(ID,Game_ID,des,star){
+    var results =await getCommentID(Game_ID);
+    var isOwn = false;
+    isOwn = compareObj(ID,results);
+    if(isOwn){
+        updateComment(ID,Game_ID,des,star);
+        console.log("update");
+    }
+    else{
+        insertComment(ID,Game_ID,des,star);
+        console.log("insert");
+    }
     
 }
 
@@ -160,5 +139,8 @@ function getRealTime(){
     return dateTime;
 }
 
-//commentGame(2,1,"wtf lah",5);
-var commentObj = getAllComment(2,1);
+//ex:
+//commentGame(1,1,"good good lah",5);
+//var commentObj = getAllComment(2,1);
+
+module.exports = { commentGame, getAllComment}
