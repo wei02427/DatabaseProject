@@ -1,18 +1,7 @@
 const database = require('./async-db.js');
-const cartFunction = require('./cart');
+const cartFunction = require('./SHMS');
+const orderFunction = require('./FMS');
 
-async function insertIDtoOrder(ID,DateTime){
-    var sqlCommand = "INSERT into `order` (`ID`,`DataTime`)VALUES (?,?)";
-    const inserts = [ID,DateTime];
-    sqlCommand = database.format(sqlCommand, inserts);
-    try {
-        await database.query(sqlCommand);
-        console.log(`success insert ID to order`);
-    }
-    catch(err){
-        console.log(err);
-    }
-}
 async function getOrderID(ID,DateTime){
     var sqlCommand = "SELECT `Order_ID` FROM `order` WHERE `ID` = ? AND `DataTime` = ?";
     const inserts = [ID,DateTime];
@@ -39,7 +28,7 @@ function getRealTime(){
 //Game_ID is a list [] ex:payment(1,[1]);
 let payment = async function(ID,Game_ID){
     var DateTime = getRealTime();
-    await insertIDtoOrder(ID,DateTime);
+    await orderFunction.insertRecord(ID,DateTime);
     var Order_ID = getOrderID(ID,DateTime);
     var Cart_ID = cartFunction.getCartID(ID);
     var i = 0;
@@ -60,17 +49,10 @@ let payment = async function(ID,Game_ID){
         console.log("success payment!");
     }
     catch (err) {
-        return err;
+        console.log(err);
     }
 }
 
-let getPersonCartList = async function(ID){
-    var personCartItem =await cartFunction.list(ID);
 
-    console.log(personCartItem);
-    return personCartItem;
-}
-
-var hell = getPersonCartList(1);
 //payment(1,[1]);
-module.exports = { payment, getPersonCartList}
+module.exports = {payment}

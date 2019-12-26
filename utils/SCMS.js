@@ -77,7 +77,7 @@ async function deleteGameComment(ID,Game_ID){
     const inserts = [ID,Game_ID];
     sqlCommand = mysql.format(sqlCommand, inserts);
     try {
-        const results = await query(sqlCommand);
+        await query(sqlCommand);
         console.log("success delete comment id");
     }
     catch{
