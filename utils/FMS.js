@@ -26,6 +26,20 @@ let showOrder = async function (ID, Order_ID) {
     }
 }
 
+let getOrderID = async function (ID, DataTime){
+    try {
+        let sql = "SELECT `Order_ID` FROM `Order`, `Member` WHERE `Member`.ID =? AND `DataTime` =?"
+        const inserts = [ID, DataTime]
+        sql = database.format(sql, inserts)
+
+        result = await database.query(sql)
+        return result
+    }
+    catch (err) {
+        return err
+    }
+}
+
 // insertRecord(1,'1999-01-23').then(function(values) {
 //     console.log(values)
 //   })
@@ -40,4 +54,11 @@ let showOrder = async function (ID, Order_ID) {
 //     console.log(err)
 //   })
 
-module.exports = {insertRecord, showOrder}
+// getOrderID(1,'2012-01-12').then(function(values) {
+//     console.table(values)
+//   })
+//   .catch(function(err){
+//     console.log(err)
+//   })
+
+module.exports = {insertRecord, showOrder, getOrderID}
