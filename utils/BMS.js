@@ -2,21 +2,6 @@ const database = require('./async-db.js');
 const cartFunction = require('./SHMS');
 const orderFunction = require('./FMS');
 
-async function getOrderID(ID,DateTime){
-    var sqlCommand = "SELECT `Order_ID` FROM `order` WHERE `ID` = ? AND `DataTime` = ?";
-    const inserts = [ID,DateTime];
-    sqlCommand = database.format(sqlCommand, inserts);
-    try {
-        var OrderID = await database.query(sqlCommand);
-        console.log(`success get OrderID from order`);
-        return OrderID[0].Order_ID;
-    }
-    catch(err){
-        console.log(err);
-    }
-}
-
-
 function getRealTime(){
     var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
@@ -29,8 +14,8 @@ function getRealTime(){
 let payment = async function(ID,Game_ID){
     var DateTime = getRealTime();
     await orderFunction.insertRecord(ID,DateTime);
-    var Order_ID = getOrderID(ID,DateTime);
-    var Cart_ID = cartFunction.getCartID(ID);
+    var Order_ID = await orderFunction.getOrderID(ID,DateTime);
+    var Cart_ID = await cartFunction.getCartID(ID);
     var i = 0;
     var sqlCommand = [];
     while(Game_ID[i]){
@@ -52,7 +37,6 @@ let payment = async function(ID,Game_ID){
         console.log(err);
     }
 }
-
 
 //payment(1,[1]);
 module.exports = {payment}
