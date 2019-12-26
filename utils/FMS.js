@@ -5,10 +5,10 @@ let insertRecord = async function (ID, DataTime) {
         const inserts = [ID, DataTime]
         sql = database.format(sql, inserts)
         result = await database.query(sql)
-        console.log("add record susscess")
+        return "add record susscess"
     }
     catch (err) {
-        console.log(err)
+        return err
     }
 }
 
@@ -36,7 +36,7 @@ let getOrderID = async function (ID, DataTime){
         return result[0].Order_ID
     }
     catch (err) {
-        console.log(err)
+        return err
     }
 }
 
