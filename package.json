@@ -5,12 +5,17 @@
   "main": "index.js",
   "dependencies": {
     "async": "^3.1.0",
+    "dotenv": "^8.2.0",
+    "ejs-locals": "^1.0.2",
+    "express": "^4.17.1",
     "mysql": "^2.17.1"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node FinalProject/app.js"
   },
+  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wei02427/DatabaseProject.git"
@@ -21,4 +26,5 @@
     "url": "https://github.com/wei02427/DatabaseProject/issues"
   },
   "homepage": "https://github.com/wei02427/DatabaseProject#readme"
+  
 }
