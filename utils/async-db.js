@@ -1,11 +1,12 @@
+const config = require('../config/development_config');
 const mysql = require('mysql')
 const async = require('async');
 const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: '123456',
+    host: config.mysql.host,
+    user: config.mysql.user,
+    password: config.mysql.password,
     port: '3306',
-    database: 'project'
+    database: config.mysql.database
 })
 
 let query = function (sql) {
