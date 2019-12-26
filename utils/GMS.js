@@ -1,18 +1,15 @@
 const database = require('./async-db.js')
-console.log('oj')
+
 let addGame = async function (Author_ID, name, type, price, photo, description, release_state, time) {
-    console.log('gg')
     try {
-        console.log('aaaa')
         let sql = "INSERT INTO `Game` (`Author_ID`, `name`, `type`, `price`, `photo`, `description`, `release_state`, `time`) VALUE (?,?,?,?,?,?,?,?)"
         const inserts = [Author_ID, name, type, price, photo, description, release_state, time]
         sql = database.format(sql, inserts)
-        console.log('okk')
+
         result = await database.query(sql)
         return 'add game susscess'
     }
     catch (err) {
-        console.log('awer')
         return err
     }
 }
@@ -24,7 +21,6 @@ let shelves_takeOff = async function (Game_ID, release_state) {
         sql = database.format(sql, updates)
 
         result = await database.query(sql)
-        console.table(result)
         if (result.affectedRows > 0) {
             return "modify success"
         }

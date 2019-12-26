@@ -28,12 +28,12 @@ let showOrder = async function (ID, Order_ID) {
 
 let getOrderID = async function (ID, DataTime){
     try {
-        let sql = "SELECT `Order_ID` FROM `Order`, `Member` WHERE `Member`.ID =? AND `DataTime` =?"
+        let sql = "SELECT `Order_ID` FROM `Order` WHERE ID =? AND `DataTime` =?"
         const inserts = [ID, DataTime]
         sql = database.format(sql, inserts)
 
         result = await database.query(sql)
-        return result
+        return result[0].Order_ID
     }
     catch (err) {
         return err
