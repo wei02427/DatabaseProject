@@ -5,7 +5,7 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { apiResponse: "" };
+    this.state = { apiResponse: "...." };
   }
 
   callAPI() {
@@ -28,10 +28,10 @@ class App extends Component {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Learn React
+            {this.state.apiResponse}
         </a>
         </header>
-        <p className="App-intro">{this.state.apiResponse}</p>
+      
       </div>
     );
   }

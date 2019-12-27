@@ -1,6 +1,7 @@
 const config = require('../config/development_config');
 const mysql = require('mysql')
 const async = require('async');
+
 const pool = mysql.createPool({
     host: config.mysql.host,
     user: config.mysql.user,

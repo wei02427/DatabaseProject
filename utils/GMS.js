@@ -48,6 +48,17 @@ let modify = async function (Game_ID, field, value) {
     }
 }
 
+
+let gamelist = async function () {
+    try {
+        let sql = "SELECT `price`,`Game_ID`,`description` FROM `game`"
+        result = await database.query(sql)
+        return result
+    }
+    catch (err) {
+        return err
+    }
+}
 // addGame(1,'fight', '射射射射', 200, null, '666', true, '4087-06-01').then(function(values) {
 //     console.table(values)
 //   })
@@ -69,4 +80,4 @@ let modify = async function (Game_ID, field, value) {
 //     console.log(err)
 //   })
 
-module.exports = { addGame, shelves_takeOff, modify }
+module.exports = { addGame, shelves_takeOff, modify,gamelist }
