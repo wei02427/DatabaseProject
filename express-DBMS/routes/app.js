@@ -1,7 +1,8 @@
 // use express method
 var express = require('express');
+var path = require('path');
 var app = express();
-
+app.set('views', path.join(__dirname, '../views'));
 // create ejs
 var engine = require('ejs-locals');
 app.engine('ejs', engine);
@@ -30,3 +31,5 @@ app.listen(port);
 if (port === 3000) {
     console.log('RUN http://localhost:3000/')
 }
+
+module.exports = app;
