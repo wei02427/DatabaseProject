@@ -8,14 +8,13 @@
     "dotenv": "^8.2.0",
     "ejs-locals": "^1.0.2",
     "express": "^4.17.1",
-    "mysql": "^2.17.1"
+    "mysql": "^2.17.1",
+    "react": "^16.12.0"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node express-DBMS/app.js"
   },
-  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wei02427/DatabaseProject.git"
@@ -26,5 +25,4 @@
     "url": "https://github.com/wei02427/DatabaseProject/issues"
   },
   "homepage": "https://github.com/wei02427/DatabaseProject#readme"
-  
 }
