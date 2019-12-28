@@ -14,14 +14,6 @@ const config = require('../config/development_config');
 const mysql = require('mysql')
 
 
-const pool = mysql.createPool({
-    host: config.mysql.host,
-    user: config.mysql.user,
-    password: config.mysql.password,
-    port: '3306',
-    database: config.mysql.database
-})
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
