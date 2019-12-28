@@ -3,11 +3,24 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var testAPIRouter = require("./routes/testAPI");
+var testAPIRouter = require('./routes/testAPI.js');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var cors = require("cors");
 var app = express();
+
+
+const config = require('../config/development_config');
+const mysql = require('mysql')
+
+
+const pool = mysql.createPool({
+    host: config.mysql.host,
+    user: config.mysql.user,
+    password: config.mysql.password,
+    port: '3306',
+    database: config.mysql.database
+})
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

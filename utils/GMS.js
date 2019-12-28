@@ -79,5 +79,20 @@ let gamelist = async function () {
 //   .catch(function(err){
 //     console.log(err)
 //   })
-
+// gamelist()
+//         .then(function (result) {
+//             console.table(result)
+//             var data = []
+//             result.forEach(function (element) {
+//                 data.push({
+//                     price: element.price,
+//                     gameID: element.Game_ID,
+//                     description:element.description
+//                 });
+//             });
+            
+//         })
+//         .catch(function (err) {
+//             console.log(err)
+//         })
 module.exports = { addGame, shelves_takeOff, modify,gamelist }
