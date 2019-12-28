@@ -1,6 +1,7 @@
 const config = require('../config/development_config');
 const mysql = require('mysql')
 const async = require('async');
+
 const pool = mysql.createPool({
     host: config.mysql.host,
     user: config.mysql.user,
@@ -13,12 +14,13 @@ let query = function (sql) {
     return new Promise((resolve, reject) => {
         pool.getConnection(function (err, connection) {
             if (err) {
-                
+                console.log('fking')
                 reject(err)
             } else {
                 // 執行 sql 腳本對資料庫進行讀寫
                 connection.query(sql, (err, rows) => {
                     if (err) {
+                        console.log('fkingdddddddddddddddd')
                         reject(err)
                     } else {
                         resolve(rows)

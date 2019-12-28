@@ -32,7 +32,7 @@ let modify = async function (id, field, value) {
 
 }
 
-register('A','WEI',1,'gmail','0911','123456','none','1999-5-5',1,'哈哈')
+register('A','WEI',1,'gmail','0911','123456','none','1999-5-5',1,'哈')
 .then(function(result){
     console.log(result)
 })
@@ -41,3 +41,5 @@ register('A','WEI',1,'gmail','0911','123456','none','1999-5-5',1,'哈哈')
 })
 
 module.exports = { register, modify }
+// ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
+

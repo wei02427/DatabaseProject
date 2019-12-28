@@ -1,3 +1,3 @@
-/* select * from `Member`;
-select * from `Cart`; */
+select * from `Member`;
+select * from `Cart`;
 

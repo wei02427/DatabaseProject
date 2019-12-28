@@ -48,12 +48,10 @@ let modify = async function (Game_ID, field, value) {
     }
 }
 
-let searchGame = async function (type) {
-    try {
-        let sql = "SELECT * FROM `Game` WHERE `type`=?"
-        const inserts = [type]
-        sql = database.format(sql, inserts)
 
+let gamelist = async function () {
+    try {
+        let sql = "SELECT `price`,`Game_ID`,`description` FROM `game`"
         result = await database.query(sql)
         return result
     }
@@ -61,9 +59,8 @@ let searchGame = async function (type) {
         return err
     }
 }
-
-// addGame(1,'fight', '射射起來', 200, null, '666', true, '4087-06-01').then(function(values) {
-//     console.log(values)
+// addGame(1,'fight', '射射射射', 200, null, '666', true, '4087-06-01').then(function(values) {
+//     console.table(values)
 //   })
 //   .catch(function(err){
 //     console.log(err)
@@ -82,12 +79,20 @@ let searchGame = async function (type) {
 //   .catch(function(err){
 //     console.log(err)
 //   })
-
-searchGame('射擊').then(function(values) {
-    console.table(values)
-})
-.catch(function(err){
-    console.log(err)
-})
-
-module.exports = { addGame, shelves_takeOff, modify, searchGame}
+// gamelist()
+//         .then(function (result) {
+//             console.table(result)
+//             var data = []
+//             result.forEach(function (element) {
+//                 data.push({
+//                     price: element.price,
+//                     gameID: element.Game_ID,
+//                     description:element.description
+//                 });
+//             });
+            
+//         })
+//         .catch(function (err) {
+//             console.log(err)
+//         })
+module.exports = { addGame, shelves_takeOff, modify,gamelist }
