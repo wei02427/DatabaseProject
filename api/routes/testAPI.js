@@ -24,3 +24,5 @@ router.get('/', function (req, res, next) {
 });
 
 module.exports = router;
+
+// git push --force heroku HEAD:master
