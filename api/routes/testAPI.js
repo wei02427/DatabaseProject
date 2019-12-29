@@ -11,7 +11,8 @@ router.get('/', function (req, res, next) {
                 data.push({
                     price: element.price,
                     gameID: element.Game_ID,
-                    description:element.description
+                    description:element.description,
+                    photo:element.photo
                 });
             });
             res.json(data);
