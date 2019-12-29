@@ -36,7 +36,7 @@ let shelves_takeOff = async function (Game_ID, release_state) {
 
 let modify = async function (Game_ID, field, value) {
     try {
-        let sql = "UPDATE `Game` SET ??=? WHERE `Game_ID`=?"
+        let sql = "SET SQL_SAFE_UPDATES=0; UPDATE `Game` SET ??=? WHERE `Game_ID`=?; SET SQL_SAFE_UPDATES=1;"
         const inserts = [field, value, Game_ID]
         sql = database.format(sql, inserts)
 
@@ -48,6 +48,17 @@ let modify = async function (Game_ID, field, value) {
     }
 }
 
+
+let gamelist = async function () {
+    try {
+        let sql = "SELECT `price`,`Game_ID`,`description` FROM `game`"
+        result = await database.query(sql)
+        return result
+    }
+    catch (err) {
+        return err
+    }
+}
 // addGame(1,'fight', '射射射射', 200, null, '666', true, '4087-06-01').then(function(values) {
 //     console.table(values)
 //   })
@@ -68,5 +79,20 @@ let modify = async function (Game_ID, field, value) {
 //   .catch(function(err){
 //     console.log(err)
 //   })
-
-module.exports = { addGame, shelves_takeOff, modify }
+// gamelist()
+//         .then(function (result) {
+//             console.table(result)
+//             var data = []
+//             result.forEach(function (element) {
+//                 data.push({
+//                     price: element.price,
+//                     gameID: element.Game_ID,
+//                     description:element.description
+//                 });
+//             });
+            
+//         })
+//         .catch(function (err) {
+//             console.log(err)
+//         })
+module.exports = { addGame, shelves_takeOff, modify,gamelist }

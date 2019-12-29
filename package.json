@@ -8,14 +8,21 @@
     "dotenv": "^8.2.0",
     "ejs-locals": "^1.0.2",
     "express": "^4.17.1",
-    "mysql": "^2.17.1"
+    "mysql": "^2.17.1",
+    "react": "^16.12.0",
+
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.1"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node FinalProject/app.js"
+    "start": "node ./api/bin/www"
   },
-  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wei02427/DatabaseProject.git"
@@ -26,5 +33,4 @@
     "url": "https://github.com/wei02427/DatabaseProject/issues"
   },
   "homepage": "https://github.com/wei02427/DatabaseProject#readme"
-  
 }
