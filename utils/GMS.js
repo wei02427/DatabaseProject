@@ -6,7 +6,8 @@ let addGame = async function (Author_ID, name, type, price, photo, description, 
         const inserts = [Author_ID, name, type, price, photo, description, release_state, time]
         sql = database.format(sql, inserts)
 
-        await database.query(sql)
+        result=await database.query(sql)
+        return Promise.resolve(result)
     }
     catch (err) {
         return Promise.reject(err);
@@ -21,7 +22,7 @@ let shelves_takeOff = async function (Game_ID, release_state) {
 
         result = await database.query(sql)
         if (result.affectedRows > 0) {
-            return "modify success"
+            return Promise.resolve("modify success")
         }
         else{
             return Promise.reject( "already shelves/take off");
@@ -38,7 +39,8 @@ let modify = async function (Game_ID, field, value) {
         const inserts = [field, value, Game_ID]
         sql = database.format(sql, inserts)
 
-        await database.query(sql)
+        result=await database.query(sql)
+        return Promise.resolve(result)
     }
     catch (err) {
         return Promise.reject(err);
@@ -50,7 +52,7 @@ let gamelist = async function () {
     try {
         let sql = "SELECT `price`,`Game_ID`,`description`,`photo` FROM `game`"
         result = await database.query(sql)
-        return Promise.resolve(resolve(result));
+        return Promise.resolve(result);
     }
     catch (err) {
         return Promise.reject(err);

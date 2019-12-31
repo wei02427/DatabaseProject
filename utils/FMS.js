@@ -4,7 +4,8 @@ let insertRecord = async function (ID, DataTime) {
         let sql = "INSERT INTO `Order`(`ID`, `DataTime`) VALUE (?,?)"
         const inserts = [ID, DataTime]
         sql = database.format(sql, inserts)
-        await database.query(sql)
+        result=await database.query(sql)
+        return Promise.resolve(result);
     }
     catch (err) {
         return Promise.reject(err);
@@ -18,7 +19,7 @@ let showOrder = async function (ID, Order_ID) {
         sql = database.format(sql, inserts)
 
         result = await database.query(sql)
-        return Promise.resolve(resolve(result[0].Order_ID));
+        return Promise.resolve(result[0].Order_ID);
     }
     catch (err) {
         return Promise.reject(err);
@@ -32,7 +33,7 @@ let getOrderID = async function (ID, DataTime){
         sql = database.format(sql, inserts)
 
         result = await database.query(sql)
-        return Promise.resolve(resolve(result[0].Order_ID));
+        return Promise.resolve(result[0].Order_ID);
     }
     catch (err) {
         return Promise.reject(err);

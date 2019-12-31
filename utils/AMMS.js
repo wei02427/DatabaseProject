@@ -10,7 +10,7 @@ let register = async function (fname, lname, sex, email, phone, password, credit
         results = await database.transaction([sql1, sql2]) 
         let sql3 = "select `ID` from `Cart` where `Cart_ID` = LAST_INSERT_ID()"
         id = await database.query(sql3)
-        return Promise.resolve(resolve(id[0].ID));
+        return Promise.resolve(id[0].ID);
     }
     catch (err) {
         return Promise.reject(err);

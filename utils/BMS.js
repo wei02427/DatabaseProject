@@ -31,7 +31,7 @@ let payment = async function(ID,Game_ID){
     }
     try {
         await database.transaction(sqlCommand)
-        console.log("success payment!");
+        return Promise.resolve("success payment!");
     }
     catch (err) {
         return Promise.reject(err);

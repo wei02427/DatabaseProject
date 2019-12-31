@@ -7,10 +7,10 @@ async function insertComment(ID,Game_ID,des,star){
     sqlCommand = database.format(sqlCommand, inserts);
     try {
         await database.query(sqlCommand);
-        console.log("success insert");
+        return Promise.resolve("success insert")
     }
     catch(err){
-        console.log(err);
+        return Promise.reject(err)
     }
 }
 
@@ -21,10 +21,10 @@ async function updateComment(ID,Game_ID,des,stars){
     sqlCommand = database.format(sqlCommand, inserts);
     try {
         await database.query(sqlCommand);
-        console.log("success update");
+        return Promise.resolve("success update")
     }
     catch(err){
-        console.log(err);
+        return Promise.reject(err)
     }
 }
 
@@ -36,10 +36,10 @@ async function getPersonComment(ID, Game_ID){
     try {
         const results = await database.query(sqlCommand);
         console.log("success get person comment");
-        return results;
+        return Promise.resolve(results)
     }
     catch(err){
-        console.log(err);
+        return Promise.reject(err)
     }
 }
 
@@ -51,10 +51,10 @@ async function getGameComment(ID,Game_ID){
     try {
         const results = await database.query(sqlCommand);
         console.log("success get game comment");
-        return results;
+        return Promise.resolve(results)
     }
     catch(err){
-        console.log(err);
+        return Promise.reject(err)
     }
 }
 
@@ -65,7 +65,7 @@ async function getCommentID(Game_ID){
     try {
         const results = await database.query(sqlCommand);
         console.log("success get comment id");
-        return Promise.resolve(resolve(results));
+        return Promise.resolve(results);
     }
     catch(err){
         return Promise.reject(err);
@@ -79,6 +79,7 @@ async function deleteGameComment(ID,Game_ID){
     try {
         await query(sqlCommand);
         console.log("success delete comment id");
+        return Promise.resolve(results);
     }
     catch{
         return Promise.reject(err);
@@ -112,7 +113,7 @@ let getAllComment = async function(ID,Game_ID){
     }
     console.log(comment);
     try{
-        return Promise.resolve(resolve(comment));
+        return Promise.resolve(comment);
     }
     catch(err){
         return Promise.reject(err);

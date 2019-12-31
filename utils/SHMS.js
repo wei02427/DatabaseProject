@@ -22,15 +22,16 @@ let add = async function (uid, gameID) {
 
     try {
         const cartID = await getCartID(uid)
-        var sql = "INSERT INTO `Cart_List` VALUE (?,?)"
-        const insert = [cartID, gameID]
-        sql = database.format(sql, insert)
-        result = await database.query(sql)
-        return result
+        var sql = []
+        gameID.forEach(function (item) {
+            sql.push(database.format("INSERT INTO `Cart_List` VALUE (?,?)", [cartID, item]))
+        });
+        result = await database.transaction(sql)
+        return Promise.resolve(result)
 
     }
     catch (err) {
-        return err
+        return Promise.reject(err)
     }
 
 }
@@ -43,14 +44,14 @@ let remove = async function (uid, gameID) {
         sql = database.format(sql, insert)
         result = await database.query(sql)
         if (result.affectedRows > 0) {
-            return 'remove game suscess'
+            Promise.resolve('remove game suscess')
         }
         else {
             throw 'game no found, remove fail'
         }
     }
     catch (err) {
-        return err
+        return Promise.reject(err)
     }
 }
 
@@ -61,11 +62,11 @@ let list = async function (uid) {
         const insert = [cartID]
         sql = database.format(sql, insert)
         results = await database.query(sql)
-        return results
-        
+        return Promise.resolve(results)
+
     }
     catch (err) {
-        return err
+        return Promise.reject(err)
     }
 }
 
@@ -77,14 +78,14 @@ let clear = async function (uid) {
         sql = database.format(sql, insert)
         result = await database.query(sql)
         if (result.affectedRows > 0) {
-            return 'clear cart suscess'
+            return Promise.resolve('clear cart suscess')
         }
         else {
             throw 'cart is empty'
         }
     }
     catch (err) {
-        return err
+        return Promise.reject(err)
     }
 }
 
@@ -95,4 +96,4 @@ let clear = async function (uid) {
   .catch(function(err){
     console.log(err)
   })*/
-module.exports = {getCartID, add, remove, clear, list }
+module.exports = { getCartID, add, remove, clear, list }
