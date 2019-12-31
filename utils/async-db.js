@@ -14,15 +14,15 @@ let query = function (sql) {
     return new Promise((resolve, reject) => {
         pool.getConnection(function (err, connection) {
             if (err) {
-                console.log('fking')
                 reject(err)
             } else {
                 // 執行 sql 腳本對資料庫進行讀寫
                 connection.query(sql, (err, rows) => {
                     if (err) {
-                        console.log('fkingdddddddddddddddd')
                         reject(err)
-                    } else {
+                    }
+                    else {
+                        console.log(rows)
                         resolve(rows)
                     }
                     connection.release()  // 結束會話
@@ -58,7 +58,6 @@ let transaction = function (sql) {
                             if (err) {
                                 connection.rollback()
                                 reject(err);
-
                             } else {
                                 connection.commit(function (err) {
                                     if (err) {
