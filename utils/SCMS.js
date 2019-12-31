@@ -2,7 +2,7 @@ const database = require('./async-db.js')
 
 async function insertComment(ID,Game_ID,des,star){     
     var dateTime = getRealTime();
-    var sqlCommand = "INSERT into `comment` (`ID`,`Game_ID`,`description`,`stars`,`time`)VALUES (?,?,?,?,?)";
+    var sqlCommand = "INSERT into `comment` (`ID`,`Game_ID`,`description`,`stars`,`time`) VALUE (?,?,?,?,?)";
     const inserts = [ID,Game_ID,des,star,dateTime];
     sqlCommand = database.format(sqlCommand, inserts);
     try {
@@ -65,10 +65,10 @@ async function getCommentID(Game_ID){
     try {
         const results = await database.query(sqlCommand);
         console.log("success get comment id");
-        return results
+        return Promise.resolve(resolve(results));
     }
     catch(err){
-        console.log(err);
+        return Promise.reject(err);
     }
 }
 
@@ -81,7 +81,7 @@ async function deleteGameComment(ID,Game_ID){
         console.log("success delete comment id");
     }
     catch{
-        console.log(err);
+        return Promise.reject(err);
     }
 }
 
@@ -111,8 +111,12 @@ let getAllComment = async function(ID,Game_ID){
         i++;
     }
     console.log(comment);
-    return comment;
-
+    try{
+        return Promise.resolve(resolve(comment));
+    }
+    catch(err){
+        return Promise.reject(err);
+    }
 }
 
 let commentGame = async function(ID,Game_ID,des,star){
