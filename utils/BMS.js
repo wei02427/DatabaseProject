@@ -34,7 +34,7 @@ let payment = async function(ID,Game_ID){
         console.log("success payment!");
     }
     catch (err) {
-        console.log(err);
+        return Promise.reject(err);
     }
 }
 

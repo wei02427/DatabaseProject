@@ -65,10 +65,10 @@ async function getCommentID(Game_ID){
     try {
         const results = await database.query(sqlCommand);
         console.log("success get comment id");
-        return results
+        return Promise.resolve(resolve(results));
     }
     catch(err){
-        console.log(err);
+        return Promise.reject(err);
     }
 }
 
@@ -81,7 +81,7 @@ async function deleteGameComment(ID,Game_ID){
         console.log("success delete comment id");
     }
     catch{
-        console.log(err);
+        return Promise.reject(err);
     }
 }
 
