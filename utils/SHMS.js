@@ -21,11 +21,8 @@ let getCartID = async function (uid) {
 let add = async function (uid, gameID) {
 
     try {
-        const cartID = await getCartID(uid)
         var sql = []
-        gameID.forEach(function (item) {
-            sql.push(database.format("INSERT INTO `Cart_List` VALUE (?,?)", [cartID, item]))
-        });
+        sql.push(database.format("INSERT INTO `Cart_List` (`Cart_ID`, `Game_ID`)VALUE ((SELECT `Cart_ID` FROM `Cart` WHERE `ID`=?),?)", [uid, gameID]))
         result = await database.transaction(sql)
         return Promise.resolve(result)
 
