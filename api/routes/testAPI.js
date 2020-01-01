@@ -17,7 +17,8 @@ router.post('/', function (req, res, next) {
                     photo:element.photo,
                     state:element.release_state,
                     Gname:element.Gname,
-                    Aname:element.Aname
+                    Aname:element.Aname,
+                    type:element.type
                 });
             });
             res.json(data);

@@ -52,10 +52,10 @@ let gamelist = async function (type, state) {
     try {
         var sql;
         if (type === 'type' && state === 'release_state') {
-            sql = "SELECT `price`,`Game_ID`,`description`,`photo`,`release_state`,`Aname`,`Gname` FROM `game_view` WHERE `release_state`=?? AND `type`=??"
+            sql = "SELECT `type`,`price`,`Game_ID`,`description`,`photo`,`release_state`,`Aname`,`Gname` FROM `game_view` WHERE `release_state`=?? AND `type`=??"
         }
         else {
-            sql = "SELECT `price`,`Game_ID`,`description`,`photo`,`release_state`,`Aname`,`Gname` FROM `game_view` WHERE `release_state`=? AND `type`=?"
+            sql = "SELECT `type`,`price`,`Game_ID`,`description`,`photo`,`release_state`,`Aname`,`Gname` FROM `game_view` WHERE `release_state`=? AND `type`=?"
         }
         sql = database.format(sql, [state, type])
         result = await database.query(sql)
