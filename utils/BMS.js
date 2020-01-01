@@ -38,5 +38,8 @@ let payment = async function(ID,Game_ID){
     }
 }
 
+
+
+
 //payment(1,[1]);
 module.exports = {payment}

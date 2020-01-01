@@ -89,11 +89,4 @@ let clear = async function (uid) {
     }
 }
 
-/*list(3).then(function(values) {
-    console.log(values)
-    
-  })
-  .catch(function(err){
-    console.log(err)
-  })*/
 module.exports = { getCartID, add, remove, clear, list }
