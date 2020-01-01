@@ -6,7 +6,7 @@ let addGame = async function (Author_ID, name, type, price, photo, description, 
         const inserts = [Author_ID, name, type, price, photo, description, release_state, time]
         sql = database.format(sql, inserts)
 
-        result=await database.query(sql)
+        result = await database.query(sql)
         return Promise.resolve(result)
     }
     catch (err) {
@@ -17,15 +17,15 @@ let addGame = async function (Author_ID, name, type, price, photo, description, 
 let shelves_takeOff = async function (Game_ID, release_state) {
     try {
         let sql = "UPDATE `Game` SET release_state = ? WHERE `Game_ID`=? AND release_state =?"
-        const updates = [release_state, Game_ID,!release_state]
+        const updates = [release_state, Game_ID, !release_state]
         sql = database.format(sql, updates)
 
         result = await database.query(sql)
         if (result.affectedRows > 0) {
             return Promise.resolve("modify success")
         }
-        else{
-            return Promise.reject( "already shelves/take off");
+        else {
+            return Promise.reject("already shelves/take off");
         }
     }
     catch (err) {
@@ -39,7 +39,7 @@ let modify = async function (Game_ID, field, value) {
         const inserts = [field, value, Game_ID]
         sql = database.format(sql, inserts)
 
-        result=await database.query(sql)
+        result = await database.query(sql)
         return Promise.resolve(result)
     }
     catch (err) {
@@ -48,10 +48,16 @@ let modify = async function (Game_ID, field, value) {
 }
 
 
-let gamelist = async function (type,state) {
+let gamelist = async function (type, state) {
     try {
-        let sql = "SELECT `price`,`Game_ID`,`description`,`photo`,`release_state` FROM `game` WHERE `release_state`=? AND `type`=?"
-        sql=database.format(sql,[state,type])
+        var sql;
+        if (type === 'type' && state === 'release_state') {
+            sql = "SELECT `price`,`Game_ID`,`description`,`photo`,`release_state` FROM `game` WHERE `release_state`=?? AND `type`=??"
+        }
+        else {
+            sql = "SELECT `price`,`Game_ID`,`description`,`photo`,`release_state` FROM `game` WHERE `release_state`=? AND `type`=?"
+        }
+        sql = database.format(sql, [state, type])
         result = await database.query(sql)
         return Promise.resolve(result);
     }
