@@ -15,7 +15,9 @@ router.post('/', function (req, res, next) {
                     gameID: element.Game_ID,
                     description:element.description,
                     photo:element.photo,
-                    state:element.release_state
+                    state:element.release_state,
+                    Gname:element.Gname,
+                    Aname:element.Aname
                 });
             });
             res.json(data);
