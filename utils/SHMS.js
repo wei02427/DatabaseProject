@@ -38,9 +38,8 @@ let add = async function (uid, gameID) {
 
 let remove = async function (uid, gameID) {
     try {
-        const cartID = await getCartID(uid)
-        var sql = "DELETE FROM `Cart_List` WHERE `Cart_ID`=? AND `Game_ID`=?"
-        const insert = [cartID, gameID]
+        var sql = "DELETE FROM `Cart_List` WHERE `Game_ID`=? AND `Cart_ID`=(SELECT `Cart_ID` FROM `Cart` WHERE `ID`=?)"
+        const insert = [gameID,uid]
         sql = database.format(sql, insert)
         result = await database.query(sql)
         if (result.affectedRows > 0) {
@@ -71,9 +70,8 @@ let list = async function (uid) {
 
 let clear = async function (uid) {
     try {
-        const cartID = await getCartID(uid)
-        var sql = "DELETE FROM `Cart_List` WHERE `Cart_ID`=?"
-        const insert = [cartID]
+        var sql = "DELETE FROM `Cart_List` WHERE `Cart_ID`=(SELECT `Cart_ID` FROM `Cart` WHERE `ID`=?)"
+        const insert = [uid]
         sql = database.format(sql, insert)
         result = await database.query(sql)
         if (result.affectedRows > 0) {
