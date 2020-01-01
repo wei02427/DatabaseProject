@@ -13,7 +13,7 @@ let insertRecord = async function (ID, DataTime) {
 }
 
 let showOrder = async function(ID){
-    var sql = "SELECT `Order_ID`, `DataTime`, SUM(`price`) FROM `order_view` WHERE `ID` = ? GROUP BY `Order_ID`";
+    var sql = "SELECT `Order_ID`, `DataTime`, SUM(`price`) AS price FROM `order_view` WHERE `ID` = ? GROUP BY `Order_ID`";
     const inserts = [ID];
     sql = database.format(sql,inserts);
     try {
@@ -65,5 +65,7 @@ let getOrderID = async function (ID, DataTime){
         return Promise.reject(err);
     }
 }
+
+showOrder(1);
 
 module.exports = {insertRecord, showOrder, getOrderID, showOrderGame, showPersonGame}
