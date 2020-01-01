@@ -2,9 +2,9 @@ var express = require('express');
 var router = express.Router();
 var gms = require('../../utils/GMS');
 
-router.get('/', function (req, res, next) {
+router.post('/', function (req, res, next) {
     const data = req.body
-    console.log(data.type)
+    console.log(data.type,data.state)
     gms.gamelist(data.type,data.state)
         .then(function (result) {
             console.log(result)
