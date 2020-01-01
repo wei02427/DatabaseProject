@@ -67,5 +67,5 @@ let login = async function (email, password) {
 
 
 module.exports = { register, modify, login }
-// ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
+
 

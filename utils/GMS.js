@@ -59,40 +59,5 @@ let gamelist = async function (type) {
         return Promise.reject(err);
     }
 }
-// addGame(1,'fight', '射射射射', 200, null, '666', true, '4087-06-01').then(function(values) {
-//     console.table(values)
-//   })
-//   .catch(function(err){
-//     console.log(err)
-//   })
 
-// shelves_takeOff(1, 0).then(function(values) {
-//     console.log(values)
-//   })
-//   .catch(function(err){
-//     console.log(err)
-//   })
-
-// modify(1, 'description', 'good').then(function(values) {
-//     console.log(values)
-//   })
-//   .catch(function(err){
-//     console.log(err)
-//   })
-// gamelist()
-//         .then(function (result) {
-//             console.table(result)
-//             var data = []
-//             result.forEach(function (element) {
-//                 data.push({
-//                     price: element.price,
-//                     gameID: element.Game_ID,
-//                     description:element.description
-//                 });
-//             });
-            
-//         })
-//         .catch(function (err) {
-//             console.log(err)
-//         })
-module.exports = { addGame, shelves_takeOff, modify,gamelist }
+module.exports = { addGame, shelves_takeOff, modify, gamelist }
