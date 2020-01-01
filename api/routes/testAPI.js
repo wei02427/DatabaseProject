@@ -4,6 +4,7 @@ var gms = require('../../utils/GMS');
 
 router.post('/', function (req, res, next) {
     const data = req.body
+    console.log(data.type)
     gms.gamelist(data.type)
         .then(function (result) {
             console.log(result)
