@@ -51,7 +51,7 @@ let modify = async function (Game_ID, field, value) {
 let gamelist = async function (type,state) {
     try {
         let sql = "SELECT `price`,`Game_ID`,`description`,`photo`,`release_state` FROM `game` WHERE `release_state`=? AND `type`=?"
-        sql=database.format(sql,[type,state])
+        sql=database.format(sql,[state,type])
         result = await database.query(sql)
         return Promise.resolve(result);
     }
