@@ -28,7 +28,7 @@ app.use(express.json())
 app.use(expressJwt({
   secret: 'secret12345'  // 签名的密钥 或 PublicKey
 }).unless({
-  path: ['/login', '/register']  // 指定路径不经过 Token 解析
+  path: ['/login', '/register','/testAPI']  // 指定路径不经过 Token 解析
 }))
 
 
