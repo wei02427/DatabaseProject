@@ -6,10 +6,12 @@ var logger = require('morgan');
 var testAPIRouter = require('./routes/testAPI.js');
 var register=require('./routes/register')
 var login=require('./routes/login')
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var cors = require("cors");
 var app = express();
+
 const expressJwt = require('express-jwt')
 
 const config = require('../config/development_config');

@@ -5,12 +5,12 @@ const jwt = require('jsonwebtoken')
 router.post('/', function (req, res, next) {
     const data = req.body
     gamms.login(data.email, data.password)
-        .then(function (uid) {
-            console.log(uid)
+        .then(function (info) {
+            console.log(info)
             const token = 'Bearer ' + jwt.sign(
                 {
-                    uid: uid,
-                    admin: false
+                    uid: info.ID,
+                    admin: info.Class==2
                 },
                 'secret12345',
                 {

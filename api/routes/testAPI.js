@@ -12,7 +12,8 @@ router.get('/', function (req, res, next) {
                     price: element.price,
                     gameID: element.Game_ID,
                     description:element.description,
-                    photo:element.photo
+                    photo:element.photo,
+                    state:element.release_state
                 });
             });
             res.json(data);
