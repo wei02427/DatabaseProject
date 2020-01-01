@@ -3,7 +3,7 @@ const database = require('./async-db.js')
 let register = async function (fname, lname, sex, email, phone, password, credits, birthday, address, account) {
 
     try {
-        let sql1 = "INSERT INTO `Member`(`First_Name`,`Last_Name`,`Sex`,`Email`,`Phone`,`Password`,`Credits`,`Class`,`Birthday`,`Address`,`Account`) VALUES (?,?,?,?,?,?,?,2,?,?,?)"
+        let sql1 = "INSERT INTO `Member`(`First_Name`,`Last_Name`,`Sex`,`Email`,`Phone`,`Password`,`Credits`,`Class`,`Birthday`,`Address`,`Account`) VALUES (?,?,?,?,?,?,?,1,?,?,?)"
         const inserts = [fname, lname, sex, email, phone, password, credits, birthday, address, account]
         let sql2 = "INSERT INTO `Cart` (`ID`) VALUES (LAST_INSERT_ID())"
         sql1 = database.format(sql1, inserts)
@@ -64,6 +64,7 @@ let login = async function (email, password) {
 //         console.log(err)
 //     })
 
+// fname, lname, sex, email, phone, password, credits, birthday, address, account
 
 
 module.exports = { register, modify, login }
