@@ -41,5 +41,5 @@ let payment = async function(ID,Game_ID){
 
 
 
-//payment(1,[1]);
+//payment(1,[211,101]);
 module.exports = {payment}

@@ -38,7 +38,18 @@ let showOrderGame = async function(Order_ID){
     }
 }
 
-
+let showPersonGame = async function(ID){
+    var sql = "SELECT `Game_ID`,`name`,`type`,`description`,`photo`, `price`, FROM `order_view` WHERE `ID` = ?";
+    const inserts = [ID];
+    sql = database.format(sql,inserts);
+    try {
+        result = await database.query(sql)
+        return Promise.resolve(result);
+    }
+    catch (err) {
+        return Promise.reject(err);
+    }
+}
 
 
 let getOrderID = async function (ID, DataTime){
@@ -55,4 +66,4 @@ let getOrderID = async function (ID, DataTime){
     }
 }
 
-module.exports = {insertRecord, showOrder, getOrderID, showOrderGame}
+module.exports = {insertRecord, showOrder, getOrderID, showOrderGame, showPersonGame}

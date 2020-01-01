@@ -53,7 +53,7 @@ let remove = async function (uid, gameID) {
 
 let list = async function (uid) {
     try {
-        var sql = "SELECT `Game_ID`, `name`, `type`, `price` FROM `cart_view` WHERE `Cart_ID`=?"
+        var sql = "SELECT `Game_ID`, `name`, `type`, `price` FROM `cart_view` WHERE `ID`=?"
         const insert = [uid]
         sql = database.format(sql, insert)
         results = await database.query(sql)
