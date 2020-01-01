@@ -56,16 +56,7 @@ let login = async function (email, password) {
     }
 
 }
-// register('A', 'WEI', 'boy', 'cmail', '0911', '123456', 'none', '1999-5-5', 1, '哈')
-//     .then(function (result) {
-//         console.log(result)
-//     })
-//     .catch(function (err) {
-//         console.log(err)
-//     })
-
-
 
 module.exports = { register, modify, login }
-// ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
+
 

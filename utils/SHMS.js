@@ -57,9 +57,8 @@ let remove = async function (uid, gameID) {
 
 let list = async function (uid) {
     try {
-        const cartID = await getCartID(uid)
-        var sql = "SELECT * FROM `Cart_List` WHERE `Cart_ID`=?"
-        const insert = [cartID]
+        var sql = "SELECT `Game_ID`, `name`, `type`, `price` FROM `cart_view` WHERE `Cart_ID`=?"
+        const insert = [uid]
         sql = database.format(sql, insert)
         results = await database.query(sql)
         return Promise.resolve(results)
