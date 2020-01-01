@@ -27,7 +27,7 @@ app.use(express.json())
 app.use(expressJwt({
   secret: 'secret12345'  // 签名的密钥 或 PublicKey
 }).unless({
-  path: ['/login', '/register','/testAPI/?']  // 指定路径不经过 Token 解析
+  path: ['/login', '/register','/testAPI']  // 指定路径不经过 Token 解析
 }))
 
 
@@ -39,7 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use("/testAPI/?", testAPIRouter);
+app.use("/testAPI", testAPIRouter);
 app.use("/register", register);
 app.use("/login", login);
 app.use("/insert",insert);
