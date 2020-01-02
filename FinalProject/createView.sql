@@ -10,3 +10,12 @@ SELECT * From game_view;
 
 SELECT * FROM cart_view;
 SELECT * FROM order_view;
+
+
+
+SELECT * FROM cart;
+SELECT * FROM cart_list;
+SELECT * FROM game;
+SELECT * FROM member;
+SELECT * FROM cart_view;
+SELECT * FROM order_view;

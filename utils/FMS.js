@@ -66,6 +66,6 @@ let getOrderID = async function (ID, DataTime){
     }
 }
 
-showOrder(1);
+//showOrder(1);
 
 module.exports = {insertRecord, showOrder, getOrderID, showOrderGame, showPersonGame}
