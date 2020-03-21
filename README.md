@@ -21,7 +21,7 @@
 ## 前端團隊
 [zx9951956](https://github.com/zx9951956)  
 [will84568035](https://github.com/will84568035)  
-[]()  
+[MingYoung1999](https://github.com/MingYoung1999)  
 ## 後端團隊
 [Potato](https://github.com/kukuman98)  
 [wei02427](https://github.com/wei02427)  
