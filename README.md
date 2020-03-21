@@ -1,6 +1,8 @@
 # Sting 游戲購物網站
 ## 説明
 這是2019年國立台北科技大學資料庫系統學期實作專案  
+運用了react 框架來部署網站，後端語言使用node.js。  
+資料庫采用缐上資源Heroku來設置，并且使用MySQL語言來進行資料的處理。 
 ## 功能介紹
 顧客可以瀏覽、搜尋、購買游戲  
 管理者可以管理游戲的上下架與價格狀況  
@@ -18,7 +20,7 @@
 資料庫子系統（Database Subsystem，DBS）  
 ## 前端團隊
 [zx9951956](https://github.com/zx9951956)  
-[]()  
+[will84568035](https://github.com/will84568035)  
 []()  
 ## 後端團隊
 [Potato](https://github.com/kukuman98)  
